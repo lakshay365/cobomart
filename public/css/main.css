@@ -1,0 +1,32 @@
+#navbarSupportedContent > ul > li > a.btn.btn-warning {
+  text-transform: uppercase;
+}
+
+#navbarSupportedContent > ul > li > a.btn.btn-warning:hover {
+  text-transform: uppercase;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.jumbotron {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.btn-google,
+.btn-google:hover,
+.btn-google:active,
+.btn-google:focus {
+  background-color: #df4930 !important;
+  border-color: #df4930 !important;
+  box-shadow: none !important;
+}
+
+.btn-facebook,
+.btn-facebook:hover,
+.btn-facebook:active,
+.btn-facebook:focus {
+  background-color: #507cc0 !important;
+  border-color: #507cc0 !important;
+  box-shadow: none !important;
+}
