@@ -7,10 +7,8 @@ module.exports = app => {
   app.get('/', (req, res) => {
     const data = {
       title: 'Cobomart - Buy and Sell books!',
-      loggedIn: !!req.user
+      user: req.user
     }
-
-    if (data.loggedIn) data.name = req.user.name
 
     res.render('home', data)
   })
