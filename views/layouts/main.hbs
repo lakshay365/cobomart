@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Cobomart - Buy and Sell books!</title>
+  <title>{{title}}</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
   <link rel="stylesheet" href="css/main.css">
@@ -27,6 +27,19 @@
       </form>
 
       <ul class="navbar-nav ml-auto">
+        {{#if loggedIn}}
+        <li class="nav-item dropdown mr-3">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            {{name}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Dashboard</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+        </li>
+        {{/if}}
         <li class="nav-item">
           <a class="btn btn-warning">post a free ad</a>
         </li>
@@ -34,17 +47,7 @@
     </div>
   </nav>
 
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-4 mx-auto mt-5">
-        <a class="btn btn-primary btn-lg btn-block btn-google" href="/auth/google">Continue with Google</a>
-        <br>
-        <a class="btn btn-primary btn-lg btn-block btn-facebook" href="/auth/facebook">Continue with Facebook</a>
-      </div>
-    </div>
-  </div>
-
-  </div>
+  {{{ body }}}
 
   <!--Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

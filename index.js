@@ -24,8 +24,8 @@ mongoose.connection
 
 const app = express()
 
-app.engine('handlebars', exphbs())
-app.set('view engine', 'handlebars')
+app.engine('.hbs', exphbs({ extname: '.hbs', defaultLayout: 'main' }))
+app.set('view engine', '.hbs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())

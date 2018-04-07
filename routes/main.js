@@ -5,7 +5,14 @@ function alreadyLoggedIn(req, res, next) {
 
 module.exports = app => {
   app.get('/', (req, res) => {
-    res.render('home')
+    const data = {
+      title: 'Cobomart - Buy and Sell books!',
+      loggedIn: !!req.user
+    }
+
+    if (data.loggedIn) data.name = req.user.name
+
+    res.render('home', data)
   })
 
   app.get('/login', alreadyLoggedIn, (req, res) => {

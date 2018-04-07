@@ -1,11 +1,18 @@
-#navbarSupportedContent > ul > li > a.btn.btn-warning {
+#navbarSupportedContent > ul > li > a.btn {
   text-transform: uppercase;
 }
 
 #navbarSupportedContent > ul > li > a.btn.btn-warning:hover {
-  text-transform: uppercase;
   background-color: #ffc107;
   border-color: #ffc107;
+}
+
+#navbarSupportedContent > ul > li > a.btn.btn-outline-info {
+  color: #17a2b8;
+}
+
+#navbarSupportedContent > ul > li > a.btn.btn-outline-info:hover {
+  color: #ffffff;
 }
 
 .jumbotron {
