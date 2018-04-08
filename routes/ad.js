@@ -1,4 +1,5 @@
 const Ad = require('../models/ad')
+const User = require('../models/user')
 
 function loggedIn(req, res, next) {
   if (!req.user) res.redirect('/login')
@@ -8,6 +9,15 @@ function loggedIn(req, res, next) {
 module.exports = app => {
   app.get('/submit', loggedIn, (req, res) => {
     res.render('submit')
+  })
+
+  app.get('/marketplace', loggedIn, (req,res) => {
+  	Ad.find({},(err, data) => {
+  		if(err){
+  			return console.log(err)
+  		}
+  		res.render('marketplace',{data:data})
+  	})
   })
 
   app.post('/submit', loggedIn, (req, res) => {
