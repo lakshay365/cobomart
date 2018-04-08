@@ -18,5 +18,26 @@
   </div>
 
   <!-- Rest of the body after jumbotron -->
-  <div> TODO </div>
+  <div class="row">
+    <div class="col-md-3">Implement a distance filter</div>
+    <div class="col-md-9">
+      {{#each ads}}
+      <div class="card mb-3">
+        <h5 class="card-header">{{title}}</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-9">
+              <h5 class="card-title">&#8377; {{price}}</h5>
+              <p class="card-text">{{description}}</p>
+              <p class="card-text">{{#unless negotiable}}Not {{/unless}}Negotiable | Condition : {{condition}}</p>
+            </div>
+            <div class="col-md-3">
+              <a href="/marketplace/{{_id}}" class="btn btn-outline-info">Contact Seller</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
 </div>

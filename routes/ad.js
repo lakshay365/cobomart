@@ -8,24 +8,28 @@ function loggedIn(req, res, next) {
 
 module.exports = app => {
   app.get('/submit', loggedIn, (req, res) => {
-    res.render('submit',{user: req.user})
+    res.render('submit', {
+      title: 'Cobomart - Submit Advertisement',
+      user: req.user,
+      hidePostAdButton: true
+    })
   })
 
   app.post('/submit', loggedIn, (req, res) => {
     var book = new Ad({
-    	title: req.body.title,
-    	description: req.body.description,
-    	price: req.body.price,
-    	negotiable: (req.body.negotiable == 'on')?true:false,
-    	condition: req.body.condition,
-    	user: req.user._id
+      title: req.body.title,
+      description: req.body.description,
+      price: req.body.price,
+      negotiable: req.body.negotiable == 'on' ? true : false,
+      condition: req.body.condition,
+      user: req.user._id
     })
 
-    book.save(function(err){
-    	if(err){
-    		return console.log(err)
-    	}
-    	console.log('saved')
+    book.save(function(err) {
+      if (err) {
+        return console.log(err)
+      }
+      console.log('saved')
     })
 
     res.render('submit')

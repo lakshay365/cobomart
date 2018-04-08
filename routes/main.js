@@ -1,3 +1,5 @@
+const Ad = require('mongoose').model('ad')
+
 function alreadyLoggedIn(req, res, next) {
   if (req.user) res.redirect('/')
   else next()
@@ -10,11 +12,16 @@ module.exports = app => {
       user: req.user
     }
 
-    res.render('home', data)
+    Ad.find({})
+      .then(ads => {
+        data.ads = ads
+        res.render('home', data)
+      })
+      .catch(err => console.log(err))
   })
 
   app.get('/login', alreadyLoggedIn, (req, res) => {
-    res.render('login')
+    res.render('login', { title: 'Log In' })
   })
 
   app.get('/logout', (req, res) => {
@@ -24,6 +31,6 @@ module.exports = app => {
 
   app.get('/user', (req, res) => {
     if (req.user) res.send(req.user.name)
-    else res.redirect('/login')
+    else res.send('No user has been logged in.')
   })
 }

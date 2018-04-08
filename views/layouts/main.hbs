@@ -34,18 +34,21 @@
             {{ user.name }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/marketplace">Marketplace</a>
             <a class="dropdown-item" href="#">Dashboard</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="/logout">Logout</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-danger" href="/marketplace">MARKETPLACE</a>
+        {{/if}} {{#unless user}}
+        <li class="nav-item mr-3">
+          <a class="btn btn-outline-secondary" href="/marketplace">MART</a>
         </li>
-        {{/if}}
+        {{/unless}} {{#unless hidePostAdButton}}
         <li class="nav-item">
-          <a class="btn btn-warning" href="/submit">post a free ad</a>
+          <a class="btn btn-warning" href="/submit">POST A FREE AD</a>
         </li>
+        {{/unless}}
       </ul>
     </div>
   </nav>

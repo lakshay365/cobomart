@@ -37,3 +37,12 @@
   border-color: #507cc0 !important;
   box-shadow: none !important;
 }
+
+#submit-ad-btn {
+  border-radius: 0;
+}
+
+#submit-ad-btn:hover {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
