@@ -45,6 +45,7 @@ app.use(express.static('public'))
 require('./routes/main')(app)
 require('./routes/auth')(app)
 require('./routes/ad')(app)
+require('./routes/marketplace')(app)
 
 const PORT = process.env.PORT || 3000
 

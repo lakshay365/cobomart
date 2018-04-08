@@ -11,15 +11,6 @@ module.exports = app => {
     res.render('submit',{user: req.user})
   })
 
-  app.get('/marketplace', loggedIn, (req,res) => {
-  	Ad.find({},(err, data) => {
-  		if(err){
-  			return console.log(err)
-  		}
-  		res.render('marketplace',{data:data, user:req.user})
-  	})
-  })
-
   app.post('/submit', loggedIn, (req, res) => {
     var book = new Ad({
     	title: req.body.title,
