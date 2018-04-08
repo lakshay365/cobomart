@@ -1,0 +1,19 @@
+<div class="col-md-9">
+  {{#each ads}}
+  <div class="card mb-3">
+    <h5 class="card-header">{{this.title}}</h5>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-9">
+          <h5 class="card-title">&#8377; {{this.price}} {{#if this.negotiable}}(Negotiable){{/if}}</h5>
+          <p class="card-text">{{this.description}}</p>
+          <p class="card-text">Condition : {{this.condition}}</p>
+        </div>
+        <div class="col-md-3">
+          <a href="/marketplace/{{this._id}}" class="btn btn-outline-info">Contact Seller</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
