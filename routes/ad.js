@@ -8,7 +8,7 @@ function loggedIn(req, res, next) {
 
 module.exports = app => {
   app.get('/submit', loggedIn, (req, res) => {
-    res.render('submit')
+    res.render('submit',{user: req.user})
   })
 
   app.get('/marketplace', loggedIn, (req,res) => {
@@ -16,7 +16,7 @@ module.exports = app => {
   		if(err){
   			return console.log(err)
   		}
-  		res.render('marketplace',{data:data})
+  		res.render('marketplace',{data:data, user:req.user})
   	})
   })
 
