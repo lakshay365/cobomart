@@ -1,15 +1,15 @@
 <div class="container mt-5" style="margin-bottom: 25vh">
-  <form>
+  <form action="/submit" method="POST">
     <div class="form-group row">
       <div class="col-md-6">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" placeholder="Title of the advertisement">
+        <input type="text" class="form-control" name="title" id="title" placeholder="Title of the advertisement">
       </div>
     </div>
 
     <div class="form-group">
       <label for="description">Description</label>
-      <textarea class="form-control" id="description" rows="15"></textarea>
+      <textarea class="form-control" name="description" id="description" rows="15"></textarea>
     </div>
 
     <div class="form-group row">
@@ -19,13 +19,13 @@
           <div class="input-group-prepend">
             <div class="input-group-text">&#8377;</div>
           </div>
-          <input type="text" class="form-control" id="price" placeholder="Quote a price">
+          <input type="text" class="form-control" name="price" id="price" placeholder="Quote a price">
         </div>
       </div>
     </div>
 
     <div class="form-check mb-4">
-      <input class="form-check-input" type="checkbox" value="" id="negotiable">
+      <input class="form-check-input" type="checkbox" name="negotiable" id="negotiable">
       <label class="form-check-label" for="negotiable">
         Negotiable
       </label>
@@ -34,10 +34,10 @@
     <div class="form-group row">
       <div class="col-md-3 col-sm-6">
         <label for="condition">Condition</label>
-        <select class="form-control" id="condition">
-          <option>Acceptable</option>
-          <option>Good</option>
-          <option>Like New</option>
+        <select class="form-control" name="condition" id="condition">
+          <option value="Acceptable">Acceptable</option>
+          <option value="Good">Good</option>
+          <option value="Like New">Like New</option>
         </select>
       </div>
     </div>

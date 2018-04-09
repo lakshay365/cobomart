@@ -16,22 +16,18 @@ module.exports = app => {
   })
 
   app.post('/submit', loggedIn, (req, res) => {
-    var book = new Ad({
+    const ad = new Ad({
       title: req.body.title,
       description: req.body.description,
       price: req.body.price,
-      negotiable: req.body.negotiable == 'on' ? true : false,
+      negotiable: req.body.negotiable === 'on',
       condition: req.body.condition,
       user: req.user._id
     })
 
-    book.save(function(err) {
-      if (err) {
-        return console.log(err)
-      }
-      console.log('saved')
-    })
-
-    res.render('submit')
+    ad
+      .save()
+      .then(ad => res.redirect(`/marketplace/${ad._id}`))
+      .catch(err => console.log(err))
   })
 }
