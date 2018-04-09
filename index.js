@@ -47,6 +47,7 @@ require('./routes/auth')(app)
 require('./routes/ad')(app)
 require('./routes/marketplace')(app)
 require('./fake')(app)
+require('./routes/dashboard')(app)
 
 const PORT = process.env.PORT || 3000
 
