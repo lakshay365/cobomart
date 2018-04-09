@@ -9,7 +9,7 @@ const PointSchema = new Schema({
 
 const InstituteSchema = new Schema({
   name: { type: String, required: true },
-  abbrevation: String,
+  abbreviation: String,
   address: { type: String, required: true },
   geometry: PointSchema
 })
