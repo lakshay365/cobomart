@@ -6,11 +6,11 @@
           My Profile
         </div>
         <div class="card-body">
-          <form action="/profile/update" action="POST">
+          <form action="/profile/update" method="POST">
             <div class="form-group row">
               <label for="name" class="col-sm-2 col-form-label">Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" value="{{user.name}}">
+                <input type="text" class="form-control" name="name" id="name" value="{{user.name}}">
               </div>
             </div>
             <div class="form-group row">
@@ -21,16 +21,24 @@
             </div>
 
             <div class="form-group row">
-              <label for="institute" class="col-sm-2 col-form-label">Institute</label>
+              <label for="instituteDetail" class="col-sm-2 col-form-label">Institute</label>
               <div class="col-sm-10">
-                <select class="form-control" id="institute">
-                  <option selected>Select your institute</option>
-                  {{!-- Fill options dynamically here --}}
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <div class="form-control" readonly name="instituteDetail" id="instituteDetail">
+                  {{#if user.institute}} {{user.institute.name}}
+                  <br>
+                  <br>{{user.institute.address}} {{else}} Please update your institute. {{/if}}
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-10 ml-auto">
+                <select class="form-control" name="institute" id="institute">
+                  <option>Change your institute</option>
+                  {{#each institutes}}
+                  <option value="{{this._id}}">{{this.name}}</option>
+                  {{/each}}
                 </select>
               </div>
             </div>

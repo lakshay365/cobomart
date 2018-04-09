@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   provider: String,
   providerId: String,
   email: String,
-  instituteId: { type: Schema.Types.ObjectId, ref: 'institute' }
+  institute: { type: Schema.Types.ObjectId, ref: 'institute' }
 })
 
 const User = mongoose.model('user', UserSchema)
