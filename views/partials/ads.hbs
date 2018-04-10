@@ -1,4 +1,8 @@
-{{#each ads}}
+{{#unless ads}}
+<div class="alert alert-warning" role="alert">
+  No advertisement was found!
+</div>
+{{/unless}} {{#each ads}}
 <div class="card mb-3">
   <h5 class="card-header">{{this.title}}</h5>
   <div class="card-body">
@@ -7,6 +11,20 @@
         <h5 class="card-title">&#8377; {{this.price}} {{#if this.negotiable}}(Negotiable){{/if}}</h5>
         <p class="card-text">{{this.description}}</p>
         <p class="card-text">Condition : {{this.condition}}</p>
+        {{#if this.user.institute.name}}
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="card-text">
+              <span class="oi oi-person mr-2"></span>{{this.user.name}}
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <p class="card-text">
+              <span class="oi oi-map-marker mr-2"></span>{{this.user.institute.name}}
+            </p>
+          </div>
+        </div>
+        {{/if}}
       </div>
       <div class="col-md-3">
         {{#if ../dashboard}}

@@ -6,8 +6,19 @@ function loggedIn(req, res, next) {
 }
 
 module.exports = app => {
-  app.get('/marketplace', loggedIn, (req, res) => {
+  app.get('/marketplace', (req, res) => {
     Ad.find({})
+      .lean()
+      .populate({
+        path: 'user',
+        select: 'name institute',
+        populate: {
+          path: 'institute',
+          select: 'name',
+          model: 'institute'
+        }
+      })
+      .exec()
       .then(ads => {
         res.render('marketplace', {
           title: 'Marketplace - Cobomart',

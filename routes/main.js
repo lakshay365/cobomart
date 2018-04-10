@@ -13,6 +13,17 @@ module.exports = app => {
     }
 
     Ad.find({})
+      .lean()
+      .populate({
+        path: 'user',
+        select: 'name institute',
+        populate: {
+          path: 'institute',
+          select: 'name',
+          model: 'institute'
+        }
+      })
+      .exec()
       .then(ads => {
         data.ads = ads
         res.render('home', data)
