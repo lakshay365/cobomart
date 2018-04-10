@@ -46,7 +46,11 @@
         </li>
         {{/if}} {{#unless user}}
         <li class="nav-item mr-3">
+          {{#if marketplace}}
+          <a class="btn btn-outline-primary" href="/login">LOG IN</a>
+          {{else}}
           <a class="btn btn-outline-primary" href="/marketplace">MART</a>
+          {{/if}}
         </li>
         {{/unless}} {{#unless hidePostAdButton}}
         <li class="nav-item">

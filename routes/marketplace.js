@@ -23,7 +23,8 @@ module.exports = app => {
         res.render('marketplace', {
           title: 'Marketplace - Cobomart',
           ads: ads,
-          user: req.user
+          user: req.user,
+          marketplace: true
         })
       })
       .catch(err => console.log(err))
