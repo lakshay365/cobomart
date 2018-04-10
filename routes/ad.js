@@ -61,4 +61,17 @@ module.exports = app => {
       .then(ad => res.redirect(`/edit/${ad.id}`))
       .catch(err => console.log(err))
   })
+
+  app.get('/delete/:id', loggedIn, (req, res) => {
+    Ad.findById(req.params.id)
+      .then(ad => {
+        if (ad && ad.user.equals(req.user._id)) {
+          return ad.remove()
+        } else {
+          return Promise.reject("Can't do this operation")
+        }
+      })
+      .then(() => res.redirect('/dashboard'))
+      .catch(err => res.redirect('/dashboard'))
+  })
 }

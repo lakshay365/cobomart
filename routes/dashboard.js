@@ -1,5 +1,6 @@
 const Institute = require('mongoose').model('institute')
 const User = require('mongoose').model('user')
+const Ad = require('mongoose').model('ad')
 
 function loggedIn(req, res, next) {
   if (!req.user) res.redirect('/')
@@ -8,7 +9,7 @@ function loggedIn(req, res, next) {
 
 module.exports = app => {
   app.get('/dashboard', loggedIn, (req, res) => {
-    const data = { title: `Dashboard - ${req.user.name}` }
+    const data = { title: `Dashboard - ${req.user.name}`, dashboard: true }
 
     Institute.find({})
       .then(institutes => {
@@ -21,6 +22,10 @@ module.exports = app => {
       .then(user => {
         data.user = user
 
+        return Ad.find({ user: req.user._id })
+      })
+      .then(ads => {
+        data.ads = ads
         res.render('dashboard', data)
       })
       .catch(err => console.log(err))

@@ -1,19 +1,26 @@
-<div class="col-md-9">
-  {{#each ads}}
-  <div class="card mb-3">
-    <h5 class="card-header">{{this.title}}</h5>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-9">
-          <h5 class="card-title">&#8377; {{this.price}} {{#if this.negotiable}}(Negotiable){{/if}}</h5>
-          <p class="card-text">{{this.description}}</p>
-          <p class="card-text">Condition : {{this.condition}}</p>
+{{#each ads}}
+<div class="card mb-3">
+  <h5 class="card-header">{{this.title}}</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-9">
+        <h5 class="card-title">&#8377; {{this.price}} {{#if this.negotiable}}(Negotiable){{/if}}</h5>
+        <p class="card-text">{{this.description}}</p>
+        <p class="card-text">Condition : {{this.condition}}</p>
+      </div>
+      <div class="col-md-3">
+        {{#if ../dashboard}}
+        <div class="btn-group-vertical">
+          <a href="/edit/{{this._id}}" class="btn btn-outline-success mb-2">
+            <span class="oi oi-pencil mr-2"></span>Update</a>
+          <a href="/delete/{{this._id}}" class="btn btn-outline-danger">
+            <span class="oi oi-trash mr-2"></span>&nbsp;Delete</a>
         </div>
-        <div class="col-md-3">
-          <a href="/marketplace/{{this._id}}" class="btn btn-outline-info">Contact Seller</a>
-        </div>
+        {{else}}
+        <a href="/marketplace/{{this._id}}" class="btn btn-outline-info">Contact Seller</a>
+        {{/if}}
       </div>
     </div>
   </div>
-  {{/each}}
 </div>
+{{/each}}
