@@ -25,7 +25,31 @@ module.exports = app => {
       })
       .exec()
       .then(ads => {
+        if (req.user && !data.include) {
+          return ads.filter(ad =>
+            ad.user.institute._id.equals(req.user.institute)
+          )
+        } else {
+          return ads
+        }
+      })
+      .then(ads => {
         data.ads = ads
+
+        return Ad.find({})
+          .sort({ price: 1 })
+          .limit(1)
+      })
+      .then(ads => {
+        data.minPrice = ads[0].price
+
+        return Ad.find({})
+          .sort({ price: -1 })
+          .limit(1)
+      })
+      .then(ads => {
+        data.maxPrice = ads[0].price
+
         res.render('home', data)
       })
       .catch(err => console.log(err))
