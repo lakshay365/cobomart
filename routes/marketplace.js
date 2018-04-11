@@ -21,8 +21,18 @@ module.exports = app => {
       query.$text = { $search: req.query.q }
     }
 
-    query.price.$gte = req.query.minPrice || 0
-    query.price.$lte = req.query.maxPrice || Number.MAX_SAFE_INTEGER
+    let renderQueryPrice = false
+
+    if (req.query.queryPrice) {
+      query.price.$gte = parseFloat(req.query.minPrice) || 0
+      query.price.$lte =
+        parseFloat(req.query.maxPrice) || Number.MAX_SAFE_INTEGER
+
+      renderQueryPrice = true
+    } else {
+      query.price.$gte = 0
+      query.price.$lte = Number.MAX_SAFE_INTEGER
+    }
 
     data.include = req.query.include
 
@@ -41,7 +51,7 @@ module.exports = app => {
       .sort('-date')
       .exec()
       .then(ads => {
-        if (req.user && req.user.institute && !data.include) {
+        if (req.user && req.user.institute && data.include !== 'on') {
           return ads.filter(ad =>
             ad.user.institute._id.equals(req.user.institute)
           )
@@ -52,19 +62,28 @@ module.exports = app => {
       .then(ads => {
         data.ads = ads
 
+        return ads.map(ad => ad._id)
+      })
+      .then(ids => {
+        query._id = { $in: ids }
+
         return Ad.find(query)
           .sort({ price: 1 })
           .limit(1)
       })
       .then(ads => {
-        data.minPrice = ads[0].price
+        data.minPrice = renderQueryPrice
+          ? req.query.minPrice
+          : (ads[0] && ads[0].price) || 0
 
         return Ad.find(query)
           .sort({ price: -1 })
           .limit(1)
       })
       .then(ads => {
-        data.maxPrice = ads[0].price
+        data.maxPrice = renderQueryPrice
+          ? req.query.maxPrice
+          : (ads[0] && ads[0].price) || 0
 
         res.render('marketplace', data)
       })

@@ -2,6 +2,7 @@
   <div class="card-body">
     <form action="/marketplace" method="GET">
       <input type="hidden" name="q" value="{{q}}">
+      <input type="hidden" name="queryPrice" id="queryPrice" value="{{queryPrice}}">
       <div class="form-group row">
         <label for="minPrice" class="col-sm-5 col-form-label">Min Price</label>
         <div class="col-sm-7">
@@ -9,7 +10,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">&#8377;</div>
             </div>
-            <input type="text" class="form-control" name="minPrice" placeholder="Min Price" value="{{minPrice}}">
+            <input type="text" class="form-control" name="minPrice" placeholder="Min Price" value="{{minPrice}}" onchange="priceChange()">
           </div>
         </div>
       </div>
@@ -20,7 +21,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">&#8377;</div>
             </div>
-            <input type="text" class="form-control" name="maxPrice" placeholder="Max Price" value="{{maxPrice}}">
+            <input type="text" class="form-control" name="maxPrice" placeholder="Max Price" value="{{maxPrice}}" onchange="priceChange()">
           </div>
         </div>
       </div>

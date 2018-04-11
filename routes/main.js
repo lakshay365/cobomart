@@ -12,6 +12,8 @@ module.exports = app => {
       user: req.user
     }
 
+    const query = {}
+
     Ad.find({})
       .lean()
       .populate({
@@ -37,14 +39,19 @@ module.exports = app => {
       .then(ads => {
         data.ads = ads
 
-        return Ad.find({})
+        return ads.map(ad => ad._id)
+      })
+      .then(ids => {
+        query._id = { $in: ids }
+
+        return Ad.find(query)
           .sort({ price: 1 })
           .limit(1)
       })
       .then(ads => {
         data.minPrice = ads[0].price
 
-        return Ad.find({})
+        return Ad.find(query)
           .sort({ price: -1 })
           .limit(1)
       })
