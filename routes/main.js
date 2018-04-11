@@ -49,14 +49,14 @@ module.exports = app => {
           .limit(1)
       })
       .then(ads => {
-        data.minPrice = ads[0].price
+        data.minPrice = (ads[0] && ads[0].price) || 0
 
         return Ad.find(query)
           .sort({ price: -1 })
           .limit(1)
       })
       .then(ads => {
-        data.maxPrice = ads[0].price
+        data.maxPrice = (ads[0] && ads[0].price) || 0
 
         res.render('home', data)
       })
