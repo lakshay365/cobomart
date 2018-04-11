@@ -29,7 +29,7 @@
         <input type="text" class="form-control" name="maxDistance" placeholder="Maximum Distance (in kms)" value="{{maxDistance}}">
       </div>
       <div class="custom-control custom-checkbox mt-4">
-        <input type="checkbox" class="custom-control-input" name="include" onchange="valueChanged()" id="include" {{#unless user}}disabled{{/unless}}
+        <input type="checkbox" class="custom-control-input" name="include" onchange="valueChanged()" id="include" {{#unless user.institute}}disabled{{/unless}}
           {{#if include}}checked{{/if}}>
         <label class="custom-control-label" for="include">Include nearby institutes</label>
       </div>

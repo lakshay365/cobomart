@@ -41,7 +41,7 @@ module.exports = app => {
       .sort('-date')
       .exec()
       .then(ads => {
-        if (req.user && !data.include) {
+        if (req.user && req.user.institute && !data.include) {
           return ads.filter(ad =>
             ad.user.institute._id.equals(req.user.institute)
           )
