@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Ad = mongoose.model('ad')
 const User = mongoose.model('user')
+const Institute = mongoose.model('institute')
 
 function loggedIn(req, res, next) {
   if (!req.user) res.redirect('/login')
@@ -8,7 +9,7 @@ function loggedIn(req, res, next) {
 }
 
 module.exports = app => {
-  app.get('/marketplace', (req, res) => {
+  app.get('/marketplace', async function(req, res) {
     const query = { price: {} }
     const data = {
       title: 'Marketplace - Cobomart',
@@ -36,7 +37,38 @@ module.exports = app => {
 
     data.include = req.query.include
 
+    if (data.include) data.maxDistance = 50
+
     if (req.query.maxDistance) data.maxDistance = req.query.maxDistance
+
+    let institutesIds = []
+
+    const nearCondition =
+      req.user &&
+      req.user.institute &&
+      req.query.include === 'on' &&
+      req.query.maxDistance
+
+    if (nearCondition) {
+      const currentUser = await User.findById(req.user._id)
+        .populate('institute')
+        .exec()
+
+      const point = currentUser.institute.geometry
+
+      institutesIds = await Institute.aggregate([
+        {
+          $geoNear: {
+            near: point,
+            distanceField: 'distance',
+            maxDistance: parseFloat(data.maxDistance) * 1000,
+            spherical: true
+          }
+        }
+      ]).then(institutes =>
+        institutes.map(institute => institute._id.toString())
+      )
+    }
 
     Ad.find(query)
       .populate({
@@ -51,7 +83,11 @@ module.exports = app => {
       .sort('-date')
       .exec()
       .then(ads => {
-        if (req.user && req.user.institute && data.include !== 'on') {
+        if (nearCondition) {
+          return ads.filter(ad =>
+            institutesIds.includes(ad.user.institute._id.toString())
+          )
+        } else if (req.user && req.user.institute && data.include !== 'on') {
           return ads.filter(ad =>
             ad.user.institute._id.equals(req.user.institute)
           )
