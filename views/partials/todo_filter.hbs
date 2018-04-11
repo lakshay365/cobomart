@@ -1,4 +1,41 @@
-<div class="alert alert-danger" role="alert">
-  FOR DEVELOPER
-  <hr> Implement mechanism to filter ads from user's institutes as well as other nearby institutes.
+<div class="card">
+  <div class="card-body">
+    <form>
+      <input type="hidden" name="q" value="{{q}}">
+      <div class="form-group row">
+        <label for="minPrice" class="col-sm-5 col-form-label">Min Price</label>
+        <div class="col-sm-7">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">&#8377;</div>
+            </div>
+            <input type="text" class="form-control" name="minPrice" placeholder="Min Price" value="{{minPrice}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="maxPrice" class="col-sm-5 col-form-label">Max Price</label>
+        <div class="col-sm-7">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">&#8377;</div>
+            </div>
+            <input type="text" class="form-control" name="maxPrice" placeholder="Max Price" value="{{maxPrice}}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group" id="maxDistanceDiv">
+        <label for="maxDistance">Maximum Distance (in kms)</label>
+        <input type="text" class="form-control" name="maxDistance" placeholder="Maximum Distance (in kms)" value="{{maxDistance}}">
+      </div>
+      <div class="custom-control custom-checkbox mt-4">
+        <input type="checkbox" class="custom-control-input" name="include" onchange="valueChanged()" id="include" {{#unless user}}disabled{{/unless}}
+          {{#if include}}checked{{/if}}>
+        <label class="custom-control-label" for="include">Include nearby institutes</label>
+      </div>
+      <div class="text-right mt-4">
+        <button class="btn btn-outline-primary">Filter</button>
+      </div>
+    </form>
+  </div>
 </div>

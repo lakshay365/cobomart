@@ -19,18 +19,7 @@
 
   <!-- Rest of the body after jumbotron -->
   <div class="row">
-    {{#if user}}
-    <div class="col-md-3">
-      {{> todo_filter}}
-    </div>
-    {{else}}
-    <div class="col-md-3">
-      <div class="alert alert-info" role="alert">
-        LOG IN
-        <hr> Please log in to view ads from your institute as well as other nearby institutes.
-      </div>
-    </div>
-    {{/if}}
+    <div class="col-md-3">{{> todo_filter}}</div>
     <div class="col-md-9">{{> ads}}</div>
   </div>
 </div>

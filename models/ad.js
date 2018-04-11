@@ -10,6 +10,8 @@ const AdSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'user' }
 })
 
+AdSchema.index({ title: 'text', description: 'text' })
+
 const Ad = mongoose.model('ad', AdSchema)
 
 module.exports = Ad

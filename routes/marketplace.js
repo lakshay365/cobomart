@@ -1,4 +1,6 @@
-const Ad = require('mongoose').model('ad')
+const mongoose = require('mongoose')
+const Ad = mongoose.model('ad')
+const User = mongoose.model('user')
 
 function loggedIn(req, res, next) {
   if (!req.user) res.redirect('/login')
@@ -7,8 +9,26 @@ function loggedIn(req, res, next) {
 
 module.exports = app => {
   app.get('/marketplace', (req, res) => {
-    Ad.find({})
-      .lean()
+    const query = { price: {} }
+    const data = {
+      title: 'Marketplace - Cobomart',
+      user: req.user,
+      marketplace: true
+    }
+
+    if (req.query.q) {
+      data.q = req.query.q
+      query.$text = { $search: req.query.q }
+    }
+
+    query.price.$gte = req.query.minPrice || 0
+    query.price.$lte = req.query.maxPrice || Number.MAX_SAFE_INTEGER
+
+    data.include = req.query.include
+
+    if (req.query.maxDistance) data.maxDistance = req.query.maxDistance
+
+    Ad.find(query)
       .populate({
         path: 'user',
         select: 'name institute',
@@ -20,12 +40,32 @@ module.exports = app => {
       })
       .exec()
       .then(ads => {
-        res.render('marketplace', {
-          title: 'Marketplace - Cobomart',
-          ads: ads,
-          user: req.user,
-          marketplace: true
-        })
+        if (req.user && !data.include) {
+          return ads.filter(ad =>
+            ad.user.institute._id.equals(req.user.institute)
+          )
+        } else {
+          return ads
+        }
+      })
+      .then(ads => {
+        data.ads = ads
+
+        return Ad.find(query)
+          .sort({ price: 1 })
+          .limit(1)
+      })
+      .then(ads => {
+        data.minPrice = ads[0].price
+
+        return Ad.find(query)
+          .sort({ price: -1 })
+          .limit(1)
+      })
+      .then(ads => {
+        data.maxPrice = ads[0].price
+
+        res.render('marketplace', data)
       })
       .catch(err => console.log(err))
   })
