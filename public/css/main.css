@@ -64,6 +64,19 @@
   border-color: #ffc107;
 }
 
-.oi-person {
+.oi {
   font-size: 0.9rem;
+}
+
+.go-back {
+  margin-top: 20vh;
+}
+.cool-btn {
+  color: #555;
+  background-color: #ffffff;
+}
+
+.cool-btn:hover {
+  color: #555;
+  background-color: #eee;
 }

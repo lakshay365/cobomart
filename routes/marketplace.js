@@ -38,6 +38,7 @@ module.exports = app => {
           model: 'institute'
         }
       })
+      .sort('-date')
       .exec()
       .then(ads => {
         if (req.user && !data.include) {
@@ -72,7 +73,15 @@ module.exports = app => {
 
   app.get('/marketplace/:id', loggedIn, (req, res) => {
     Ad.findById(req.params.id)
-      .populate('user')
+      .populate({
+        path: 'user',
+        select: 'name email institute',
+        populate: {
+          path: 'institute',
+          model: 'institute',
+          select: 'name address'
+        }
+      })
       .exec()
       .then(ad => {
         res.render('advertisement', {
