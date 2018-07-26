@@ -1,6 +1,6 @@
 # Introduction
 
-A web application to help students sell and purchase books from college pears. It allows posting ads
+A web application to help students sell and purchase books from college peers. It allows posting ads
 and filter them according to the distance of the seller's college.
 
 This is a prototype and hence, not suitable for hosting.
