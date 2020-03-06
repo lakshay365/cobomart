@@ -8,5 +8,7 @@ module.exports = {
     appSecret: process.env.FACEBOOK_APP_SECRET
   },
   mongoURI: process.env.MONGO_URI,
-  cookieKey: process.env.COOKIE_KEY
-}
+  cookieKey: process.env.COOKIE_KEY,
+  googleCallbackURL: process.env.GOOGLE_CALLBACK_URL,
+  fbCallbackURL: process.env.FACEBOOK_CALLBACK_URL
+};
